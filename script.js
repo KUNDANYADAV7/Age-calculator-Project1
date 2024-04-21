@@ -11,11 +11,9 @@ function calculateAge() {
   var age = {};
   var age2 = {};
 
-  // Calculate years
   age.years = targetDate.getFullYear() - dob.getFullYear();
   var monthDiff = targetDate.getMonth() - dob.getMonth();
 
-  // Adjust years if necessary
   if (
     monthDiff < 0 ||
     (monthDiff === 0 && targetDate.getDate() < dob.getDate())
@@ -23,7 +21,6 @@ function calculateAge() {
     age.years--;
   }
 
-  // Calculate months
   age.months = targetDate.getMonth() - dob.getMonth();
   if (
     monthDiff < 0 ||
@@ -31,59 +28,48 @@ function calculateAge() {
   ) {
     age.months = 12 + monthDiff;
   }
-  // Calculate months
-  // age2.months = (targetDate.getFullYear() - dob.getFullYear()) * 12 + targetDate.getMonth() - dob.getMonth();
-  // Calculate months
+
   age2.months =
     (targetDate.getFullYear() - dob.getFullYear()) * 12 +
     targetDate.getMonth() -
     dob.getMonth();
 
-  // Adjust months if the difference is negative
   if (targetDate.getDate() < dob.getDate()) {
     age2.months--;
   }
 
-  // Calculate days
-  var oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
-  var dobTimestamp = dob.getTime(); // Get timestamp of dob
-  var targetTimestamp = targetDate.getTime(); // Get timestamp of targetDate
+  var oneDay = 24 * 60 * 60 * 1000;
+  var dobTimestamp = dob.getTime();
+  var targetTimestamp = targetDate.getTime();
   var totalDays = Math.round(
     Math.abs((targetTimestamp - dobTimestamp) / oneDay)
-  ); // Calculate difference in days
+  );
 
-  // Calculate days
   age.days = targetDate.getDate() - dob.getDate();
   if (age.days < 0) {
     var prevMonthDate = new Date(
       targetDate.getFullYear(),
       targetDate.getMonth() - 1,
       0
-    ); // Getting the last day of the previous month
+    );
     var daysInPrevMonth = prevMonthDate.getDate();
     age.days = daysInPrevMonth - dob.getDate() + targetDate.getDate();
-    age.months--; // Adjusting the month if the day difference is negative
+    age.months--;
   }
 
-  // Calculate weeks
   age2.weeks = Math.floor(totalDays / 7);
 
-  // Calculate remaining days after calculating weeks
   var remainingDays = totalDays % 7;
 
-  // Calculate hours
   var hours = (targetDate - dob) / (1000 * 60 * 60);
   age.hours = Math.floor(hours);
 
-  // Calculate minutes
   var minutes = (targetDate - dob) / (1000 * 60);
   age.minutes = Math.floor(minutes);
 
-  // Calculate seconds
   var seconds = (targetDate - dob) / 1000;
   age.seconds = Math.floor(seconds);
 
-  // Display result
   var result = "<center><strong>Age</strong></center><br>";
   result +=
     age.years + " years " + age.months + " months " + age.days + " days<br>";
@@ -98,7 +84,6 @@ function calculateAge() {
   document.querySelector(".container").style.display = "flex";
   document.querySelector(".containers").style.display = "block";
 
-  // Display calendars
   displayCalendar(
     "dobCalendar",
     dob.getFullYear(),
@@ -138,7 +123,6 @@ function displayCalendar(
 
   var day = 1;
   for (var i = 0; i < 6; i++) {
-    // calendar += "<tr>";
     calendar +=
       "<tr style='background-color: " +
       (i % 2 === 0 ? "#FBEFEF" : "white") +
